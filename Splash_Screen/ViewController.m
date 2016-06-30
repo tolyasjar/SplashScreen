@@ -15,13 +15,46 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+  
+    [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(showMessage:) userInfo:nil repeats:NO];
+    
 }
+
+-(void) showMessage:(NSTimer *)timer
+{
+    
+    
+    if (![@"1" isEqualToString:[[NSUserDefaults standardUserDefaults]
+                               objectForKey:@"aValue"]]) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"aValue"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    
+        //
+        [UIView animateWithDuration:1.0 animations:^{
+            
+            self.welcomeLabel.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            
+            [UIView animateWithDuration:1.0 animations:^{
+                
+                self.welcomeLabel.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                
+            }];
+            
+        }];
+        //
+    }
+        
+        
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
